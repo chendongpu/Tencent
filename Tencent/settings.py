@@ -63,6 +63,7 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
+   'Tencent.pipelines.MySQLPipeline': 300,
    'Tencent.pipelines.TencentPipeline': 300,
 }
 
@@ -86,3 +87,30 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+
+# 连接数据MySQL
+# 数据库地址
+MYSQL_HOST = '192.168.0.10'
+# 数据库用户名:
+MYSQL_USER = 'root'
+# 数据库密码
+MYSQL_PASSWORD = '123456'
+# 数据库端口
+MYSQL_PORT = 3306
+# 数据库名称
+MYSQL_DBNAME = '51job'
+# 数据库编码
+MYSQL_CHARSET = 'utf8'
+
+# CREATE TABLE `position` (
+#   `id` bigint(11) NOT NULL AUTO_INCREMENT,
+#   `name` varchar(128) NOT NULL DEFAULT '',
+#   `company` varchar(128) NOT NULL DEFAULT '',
+#   `place` varchar(128) NOT NULL DEFAULT '',
+#   `salary` varchar(128) NOT NULL DEFAULT '',
+#   `time` varchar(128) NOT NULL DEFAULT '',
+#   `createtime` datetime NOT NULL,
+#   PRIMARY KEY (`id`)
+# ) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
