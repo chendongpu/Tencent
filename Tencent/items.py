@@ -14,4 +14,5 @@ class TencentItem(scrapy.Item):
      place = scrapy.Field()
      salary = scrapy.Field()
      time = scrapy.Field()
+     requirement=scrapy.Field()
 

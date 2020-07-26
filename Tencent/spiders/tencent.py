@@ -1,6 +1,7 @@
 import scrapy
 from Tencent.items import TencentItem
 from urllib.request import quote
+from Tencent.util import dehtml
 
 class TencentSpider(scrapy.Spider):
     name = 'tencent'
@@ -43,9 +44,31 @@ class TencentSpider(scrapy.Spider):
             time = node.xpath("./span[@class='t5']/text()").extract()[0].encode("utf-8")
             time = str(time, encoding="utf-8")
             item['time'] = time
-            yield item
+
+            href=node.xpath("./p/span/a/@href").extract()[0].encode("utf-8")
+            href = str(href, encoding="utf-8")
+            print("=" * 30)
+            print(href)
+            print("=" * 30)
+            if type(href) == str:
+                yield scrapy.Request(
+                    href,
+                    callback=self.parse_detail,
+                    meta={"item": item}
+                )
+
 
         if len(response.xpath("//div[@class='p_in']/ul/li[@class='bk'][position()=2]/a"))!=0:
             url=response.xpath("//div[@class='p_in']/ul/li[@class='bk'][position()=2]/a/@href").extract()[0]
             yield scrapy.Request(url, callback=self.parse)
 
+    def parse_detail(self, response):
+        item = response.meta["item"]
+        # 获取详情页的岗位介绍
+        desc=response.xpath("//div[@class='bmsg inbox']/p[@class='fp']/text()").extract()[0].encode("utf-8")
+        desc = str(desc, encoding="utf-8")
+        print("=" * 30)
+        print(desc)
+        print("=" * 30)
+        item["requirement"] = dehtml(desc)
+        yield item

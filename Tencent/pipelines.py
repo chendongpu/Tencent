@@ -89,8 +89,8 @@ class MySQLPipeline:
     def insert_into(self, cursor, item):
         createtime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         # 创建sql语句
-        sql = "INSERT INTO position (`name`,company,place,salary,`time`,createtime) " \
-              "VALUES ('{}','{}','{}','{}','{}','{}')".format(item['name'], item['company'], item['place'], item['salary'],item['time'], createtime)
+        sql = "INSERT INTO position (`name`,company,place,salary,`time`,createtime,requirement) " \
+              "VALUES ('{}','{}','{}','{}','{}','{}','{}')".format(item['name'], item['company'], item['place'], item['salary'],item['time'], createtime,item['requirement'])
         # 执行sql语句
         cursor.execute(sql)
         # 错误函数
